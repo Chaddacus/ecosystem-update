@@ -1,0 +1,80 @@
+# config.example.yaml — copy to config.yaml and adjust.
+#
+# All paths support ~ expansion.
+
+paths:
+  # Where the dedup state lives. The skill reads `seen_items` from here at the
+  # start of each run and writes back at the end.
+  state_file: ~/.claude/state/ecosystem-update-last-run.json
+
+  # Where dated reports get written. The skill creates this directory if missing.
+  report_dir: ~/.claude/reports/ecosystem/
+
+  # Where pre-change backups go. A new YYYY-MM-DD subdir is created per run.
+  backup_dir: ~/.claude/backups/
+
+  # Files the skill reads in Step 1 to snapshot current state. Override this
+  # if you've moved your Claude home or you're running this on a non-Claude
+  # codebase (e.g. for security advisories you might point this at your
+  # SBOM file or dependency manifest).
+  current_state_files:
+    - ~/.claude/CLAUDE.md
+    - ~/.claude/settings.json
+  current_state_globs:
+    - ~/.claude/agents/*.md
+    - ~/.claude/skills/*/SKILL.md
+
+# Candidate types and their detection criteria. Override this list to adapt
+# the skill to a different ecosystem (security advisories, web framework
+# updates, infra tooling, etc.).
+candidate_types:
+  - hook
+  - agent-pattern
+  - skill
+  - claude-md
+  - mcp
+  - research
+
+scoring:
+  # Priority = Impact / Effort. Items at or above this number become Quick Wins.
+  quick_win_threshold: 2.0
+
+  # Items in [build_queue_threshold, quick_win_threshold) become Build Queue.
+  # Items below this are dropped (after the Already-Have / Conflicts checks).
+  build_queue_threshold: 1.0
+
+# When true, philosophy gate enforces the one-sentence overengineering test
+# on every recommendation. Strongly recommended on. Disable only if you're
+# specifically prototyping new categories of recommendation.
+philosophy_gate: true
+
+# When true, Step 8 auto-implements Quick Wins. When false, the skill is
+# report-only — equivalent to always passing --dry-run.
+implement_quick_wins: true
+
+hard_limits:
+  # Files the auto-implement step must never modify, even if scoring allows it.
+  # The constitutional CLAUDE.md belongs here. Add other tripwires as needed.
+  never_touch:
+    - ~/.claude/CLAUDE.md
+
+  # When true, auto-implement only edits existing files. New-file Quick Wins
+  # are downgraded to Build Queue.
+  forbid_new_files: true
+
+  # When true, auto-implement only adds frontmatter — never rewrites agent or
+  # skill bodies.
+  forbid_body_rewrites: true
+
+  # When true, refuse to wire a hook in settings.json that points at a script
+  # file that doesn't exist yet. Prevents broken hook configs.
+  forbid_new_hooks_without_script: true
+
+# Optional: a memory MCP to query for prior `ecosystem-update seen` observations
+# as a secondary dedup signal. The state file is the source of truth either way.
+# Examples: claude-mem, omni-mem.
+memory_mcp: null
+
+# Optional: a shell command to run after a successful update. Set to null to
+# disable.
+notify_on_complete: null

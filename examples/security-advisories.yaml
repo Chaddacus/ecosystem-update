@@ -1,0 +1,40 @@
+# examples/security-advisories.yaml — track CVEs, security advisories, mitigations.
+#
+# Copy to ../sources.yaml if you want a daily security drift report against
+# your own dependency manifest / SBOM.
+
+tier_1_daily:
+  - url: https://nvd.nist.gov/vuln/full-listing/2026
+    extract: CVEs published in the last 24h relevant to your dependency manifest
+    websearch_supplement: critical CVE 2026 site:nvd.nist.gov
+  - url: https://github.com/advisories?query=published%3A%3E2026-01-01
+    extract: GitHub Security Advisories published in the last 24h
+  - url: https://www.cisa.gov/news-events/cybersecurity-advisories
+    extract: CISA advisories — high-priority for federal/regulated environments
+
+tier_2_daily_optional:
+  - url: https://krebsonsecurity.com/feed/
+    extract: active campaigns, breach disclosures, exploited vulnerabilities
+  - url: https://blog.cloudflare.com/tag/security/
+    extract: edge-detected threat patterns, mitigation patterns
+
+tier_3_weekly:
+  - url: https://www.crowdstrike.com/en-us/blog/category/threat-research/
+    extract: long-form threat research, attacker TTPs
+  - url: https://owasp.org/www-project-top-ten/
+    extract: OWASP Top Ten changes (rare but high-impact)
+
+# Suggested config.yaml::candidate_types override for security advisories:
+#   - cve
+#   - advisory
+#   - mitigation
+#   - hardening-pattern
+#   - research
+#
+# Suggested config.yaml::current_state_files override:
+#   - ./package.json          # or your equivalent dependency manifest
+#   - ./Gemfile.lock
+#   - ./poetry.lock
+#   - ./go.sum
+#   - ./Cargo.lock
+#   - ./sbom.json

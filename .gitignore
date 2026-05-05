@@ -1,0 +1,20 @@
+# User-specific configs — don't commit. The .example.yaml files are the
+# committed templates; users copy them to the unsuffixed names.
+sources.yaml
+config.yaml
+
+# Local state, reports, backups — never commit.
+state/
+reports/
+backups/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~

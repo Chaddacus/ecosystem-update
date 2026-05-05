@@ -1,0 +1,39 @@
+# examples/web-framework.yaml — track frontend framework releases, RFCs, patterns.
+#
+# This example is shaped for Next.js / React but the structure works for any
+# fast-moving framework (Svelte, Vue, Astro, Remix). Swap the URLs.
+
+tier_1_daily:
+  - url: https://github.com/vercel/next.js/releases
+    extract: new Next.js releases, breaking changes, new APIs
+  - url: https://github.com/facebook/react/discussions/categories/general
+    extract: React core team discussions worth tracking
+  - url: https://nextjs.org/blog
+    extract: official Next.js blog — new features, upgrade guides
+
+tier_2_daily_optional:
+  - url: https://github.com/reactjs/rfcs/pulls?q=is%3Apr+is%3Aopen
+    extract: open React RFCs and proposals
+  - url: https://github.com/vercel/next.js/discussions/categories/rfc
+    extract: open Next.js RFCs
+
+tier_3_weekly:
+  - url: https://react.dev/blog
+    extract: official React blog — major posts only
+  - url: https://github.com/TanStack/query/releases
+    extract: TanStack Query releases worth adopting
+  - url: https://web.dev/articles
+    extract: web.dev articles on patterns and performance
+
+# Suggested config.yaml::candidate_types override for a web framework watcher:
+#   - release
+#   - rfc
+#   - pattern
+#   - migration
+#   - perf-tip
+#   - research
+#
+# Suggested config.yaml::current_state_files override:
+#   - ./package.json
+#   - ./next.config.js
+#   - ./tsconfig.json

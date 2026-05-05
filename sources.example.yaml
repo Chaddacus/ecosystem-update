@@ -1,0 +1,33 @@
+# sources.example.yaml — copy to sources.yaml and customize.
+#
+# Each entry has:
+#   url               — what to fetch
+#   extract           — one-line description of what to look for in the response
+#   websearch_supplement (optional) — a query string to run alongside the fetch
+#
+# Tiers control how often each source is fetched:
+#   tier_1_daily          — fetched every run
+#   tier_2_daily_optional — skipped if tier_2 ran in the last 24h
+#   tier_3_weekly         — skipped if tier_3 ran in the last 7d
+#
+# This file mirrors the original Claude Code ecosystem-update sources.
+
+tier_1_daily:
+  - url: https://github.com/hesreallyhim/awesome-claude-code
+    extract: new skills, hooks, agents, orchestrators added to the catalog
+  - url: https://howborisusesclaudecode.com/
+    extract: latest tips and workflow patterns
+  - url: https://github.com/shanraisshan/claude-code-best-practice
+    extract: new tips, CLAUDE.md patterns, hook techniques
+    websearch_supplement: '"claude code" new hooks agents skills site:github.com 2026'
+
+tier_2_daily_optional:
+  - url: https://arxiv.org/search/?searchtype=all&query=LLM+agent+coding&order=-announced_date_first
+    extract: papers from the last 24h with applicable multi-agent or verification patterns
+    websearch_supplement: arxiv.org LLM agent coding autonomous 2026 site:arxiv.org
+
+tier_3_weekly:
+  - url: https://github.com/rohitg00/awesome-claude-code-toolkit
+    extract: new agents, hooks, skills from the comprehensive catalog
+  - url: https://code.claude.com/docs/
+    extract: new official features, new hook events, new CLI flags

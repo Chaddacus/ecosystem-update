@@ -1,0 +1,40 @@
+# examples/ai-engineering.yaml — track AI engineering, agent frameworks, MCP, LLM tooling.
+#
+# Copy to ../sources.yaml as a starting point if you're working in the AI
+# engineering / agentic systems space.
+
+tier_1_daily:
+  - url: https://github.com/hesreallyhim/awesome-claude-code
+    extract: new skills, hooks, agents, orchestrators added to the catalog
+  - url: https://github.com/punkpeye/awesome-mcp-servers
+    extract: new MCP servers with clear tool boundaries
+  - url: https://www.anthropic.com/news
+    extract: new Claude features, model releases, API changes
+  - url: https://openai.com/blog
+    extract: API changes, new models, agent-relevant releases
+
+tier_2_daily_optional:
+  - url: https://arxiv.org/search/?searchtype=all&query=LLM+agent+coding&order=-announced_date_first
+    extract: papers from the last 24h with applicable multi-agent or verification patterns
+    websearch_supplement: arxiv.org LLM agent coding autonomous 2026 site:arxiv.org
+  - url: https://arxiv.org/search/?searchtype=all&query=multi-agent+RAG&order=-announced_date_first
+    extract: multi-agent retrieval-augmented patterns from the last 24h
+
+tier_3_weekly:
+  - url: https://github.com/rohitg00/awesome-claude-code-toolkit
+    extract: comprehensive catalog of agents, hooks, skills
+  - url: https://code.claude.com/docs/
+    extract: new official Claude Code features, hook events, CLI flags
+  - url: https://platform.openai.com/docs/changelog
+    extract: API spec changes worth adopting
+  - url: https://github.com/modelcontextprotocol/servers
+    extract: official MCP server reference implementations
+
+# Suggested config.yaml::candidate_types override for AI eng:
+#   - hook
+#   - agent-pattern
+#   - skill
+#   - mcp
+#   - prompt-pattern
+#   - eval-loop
+#   - research
