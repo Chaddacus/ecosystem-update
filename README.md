@@ -7,7 +7,7 @@ Originally built to keep my personal Claude Code config current with the broader
 ## What it does
 
 1. **Reads your current state** — config files, installed agents, skills, MCP servers (paths configurable)
-2. **Fetches sources** — URLs from `sources.yaml`, organized into tiers (daily / weekly / monthly)
+2. **Fetches sources** — URLs from `sources.yaml`, organized into tiers (daily / weekly)
 3. **Extracts candidates** — discrete items it found that you might want to add
 4. **Diffs against current state** — buckets each candidate as `HAVE`, `PARTIAL`, `MISSING`, or `CONFLICTS`
 5. **Scores remaining items** — Impact / Effort / Alignment-with-philosophy
@@ -26,13 +26,17 @@ Cron this once. Read a 2-minute report each morning. The skill does the rest.
 ## Install
 
 ```bash
-git clone https://github.com/Chaddacus/ecosystem-update ~/.claude/skills/ecosystem-update
-cd ~/.claude/skills/ecosystem-update
-cp sources.example.yaml sources.yaml
-cp config.example.yaml config.yaml
-# edit sources.yaml — add the URLs you want to track
-# edit config.yaml — adjust paths if your Claude home isn't ~/.claude
+git clone https://github.com/Chaddacus/ecosystem-update
+cd ecosystem-update
+./install.sh
 ```
+
+`install.sh` drops the skill into `~/.claude/skills/ecosystem-update/`, scaffolds `sources.yaml` and `config.yaml` from the example templates on first run, and creates the state / reports / backups / logs directories.
+
+Then edit:
+
+- `~/.claude/skills/ecosystem-update/sources.yaml` — the URLs you want to track
+- `~/.claude/skills/ecosystem-update/config.yaml` — adjust paths if your Claude home isn't `~/.claude`
 
 Then in Claude Code:
 
@@ -44,6 +48,22 @@ For a dry run (report only, no auto-implement):
 
 ```
 /ecosystem-update --dry-run
+```
+
+### Alternate: dev install (symlink the repo)
+
+If you want to hack on the skill body itself, use `--link` instead — that symlinks `SKILL.md` and the example yamls back to the repo so your edits go straight to the source:
+
+```bash
+./install.sh --link
+```
+
+### Updating
+
+```bash
+cd <wherever you cloned it>
+git pull
+./install.sh   # idempotent; preserves your sources.yaml and config.yaml
 ```
 
 ## Customize

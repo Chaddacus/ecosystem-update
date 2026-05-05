@@ -48,10 +48,11 @@ if [[ ! -f "$SKILL_DIR/config.yaml" ]]; then
   echo "created $SKILL_DIR/config.yaml — edit paths and limits as needed"
 fi
 
-# Ensure the state directory exists so the first run can write to it.
+# Ensure the runtime directories exist so the first run can write to them.
 mkdir -p "$CLAUDE_HOME/state"
 mkdir -p "$CLAUDE_HOME/reports/ecosystem"
 mkdir -p "$CLAUDE_HOME/backups"
+mkdir -p "$CLAUDE_HOME/logs"
 
 echo
 echo "ecosystem-update installed at $SKILL_DIR ($MODE mode)"
